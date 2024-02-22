@@ -1,5 +1,6 @@
 from datasets import load_dataset, Dataset
 
+
 DATASETS = [
     {
         'id': 'bigbio/czi_drsm',
@@ -18,7 +19,6 @@ DATASETS = [
         'label': ['MedlineCitation', 'Article', ['ArticleTitle', 'Abstract']]
     }
 ]
-
 
 def get_text(data_item, label):
     if type(label) == str:
@@ -39,7 +39,7 @@ def get_text(data_item, label):
         d = data_item['MedlineCitation']['Article']
         title = d['ArticleTitle']
         abstract = d['Abstract']
-        if abstract:
+        if len(abstract) > 0:
             if type(abstract) == str:
                 texts.append(abstract)
             elif type(abstract) == list:
@@ -51,14 +51,21 @@ def get_dataset():
     multi_data = []
 
     for dataset in DATASETS:
+        print(f"------ {dataset['id']} ------")
         data = load_dataset(dataset['id'],
                             split='train',
                             trust_remote_code=True)
         lbl = dataset['label']
-        for dp in data:
-            dp_text = get_text(data_item=dp,
-                               label=lbl)
-            if dp_text:
-                multi_data.append(dp_text)
+        for example in data:
+            example_text = get_text(data_item=example,
+                                    label=lbl)
+            if len(example_text) > 0:
+                multi_data.append(example_text)
+        print(len(multi_data))
 
     return Dataset.from_list(multi_data).shuffle()
+
+
+#TODO: scientific_papers 
+#TODO: pubmed_qa
+#TODO: medmcqa

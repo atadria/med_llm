@@ -41,8 +41,8 @@ _HOMEPAGE = "https://www.nlm.nih.gov/databases/download/pubmed_medline.html"
 
 _LICENSE = ""
 
-_URLs = [f"https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/pubmed24n{i:04d}.xml.gz" for i in range(1, 2)]
-# _URLs = [f"https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/pubmed24n{i:04d}.xml.gz" for i in range(1, 1220)]
+# _URLs = [f"https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/pubmed24n{i:04d}.xml.gz" for i in range(1, 2)]
+_URLs = [f"https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/pubmed24n{i:04d}.xml.gz" for i in range(1, 1220, 50)]
 
 
 # Copyright Ferry Boender, released under the MIT license.
