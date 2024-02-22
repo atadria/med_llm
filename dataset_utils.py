@@ -20,6 +20,7 @@ DATASETS = [
     }
 ]
 
+
 def get_text(data_item, label):
     if type(label) == str:
         return {'text': data_item[label]}
@@ -38,8 +39,9 @@ def get_text(data_item, label):
         texts = []
         d = data_item['MedlineCitation']['Article']
         title = d['ArticleTitle']
-        abstract = d['Abstract']
-        if len(abstract) > 0:
+        abstract = d['Abstract']['AbstractText']
+        if abstract:
+            texts.append(title)
             if type(abstract) == str:
                 texts.append(abstract)
             elif type(abstract) == list:
@@ -59,7 +61,7 @@ def get_dataset():
         for example in data:
             example_text = get_text(data_item=example,
                                     label=lbl)
-            if len(example_text) > 0:
+            if example_text:
                 multi_data.append(example_text)
         print(len(multi_data))
 
