@@ -65,12 +65,14 @@ def get_dataset():
                             split='train',
                             trust_remote_code=True)
         lbl = dataset['label']
+        cnt = 0
         for example in data:
             example_text = get_text(data_item=example,
                                     label=lbl)
             if example_text:
                 multi_data.append(example_text)
-        print(len(multi_data))
+                cnt += 1
+        print(cnt)
 
     return Dataset.from_list(multi_data).shuffle(seed=123)
 
@@ -86,6 +88,8 @@ def get_dataset():
 
 # scientific_papers
 def get_papers_dataset():
+    print(f"------ scientific_papers ------")
+    
     def fix_text(txt):
         txt = txt.replace(' .', '.') \
             .replace(' ,', ',') \
@@ -111,11 +115,14 @@ Abstract:
     data = load_dataset('scientific_papers', 'pubmed',
                         split='train',
                         trust_remote_code=True)
+    print(len(data))
     return data.map(format_example)
 
 
 # pubmed_qa - 'pqa_artificial', 'pqa_labeled', 'pqa_unlabeled'
 def get_pubmed_qa_dataset():
+    print(f"------ pubmed_qa ------")
+    
     qa_pubmed_prompt = '''[INST] Provide long answer and short one - final decision (yes/maybe/no) for given question. Use provided context. 
 Question: 
 {question}
@@ -141,13 +148,14 @@ final decision:
     data = load_dataset('pubmed_qa', 'pqa_labeled',
                         split='train',
                         trust_remote_code=True)
-    print(data)
-
+    print(len(data))
     return data.map(format_prompt)
 
 
 # medmcqa
 def get_medmcqa_dataset():
+    print(f"------ medmcqa ------")
+    
     prompt = '''[INST] Select correct option A, B, C, D and provide explanation. 
 Topic name: {topic_name_}
 Question:
@@ -199,6 +207,7 @@ Explanation:
     data = load_dataset('medmcqa',
                         split='train',
                         trust_remote_code=True)
+    print(len(data))
     return data.map(format_prompt)
 
 
