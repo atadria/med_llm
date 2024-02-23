@@ -164,7 +164,7 @@ Explanation:
 
     # skip short answer for questions with choice_type = 'multi'
     #  all questions have only one option selected (cop)
-    prompt_multiple = '''[INST] Provide answer with explanation to given question. 
+    prompt_multiple = '''[INST] Provide explanation to given question. 
 Topic name: {topic_name_}
 Question:
 {question}
@@ -173,7 +173,7 @@ Question:
 (B) {opb}
 (C) {opc}
 (D) {opd} [/INST]
-Answer with explanation:
+Explanation:
 {exp} </s>'''
 
     cop_dict = {0: 'A',
@@ -200,6 +200,7 @@ Answer with explanation:
                         split='train',
                         trust_remote_code=True)
     return data.map(format_prompt)
+
 
 def get_instruction_dataset():
     dataset = concatenate_datasets([
