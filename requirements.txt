@@ -1,3 +1,4 @@
 datasets
 bioc
 jupyterlab
+torch
