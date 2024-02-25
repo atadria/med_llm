@@ -27,7 +27,9 @@ tokenizer = AutoTokenizer.from_pretrained(
     padding_side="left",
     add_eos_token=True)
 
-tokenizer.pad_token = tokenizer.eos_token
+# tokenizer.pad_token = tokenizer.eos_token
+tokenizer.pad_token = tokenizer.unk_token
+model.config.pad_token_id = tokenizer.pad_token
 
 # Data preparation
 #
@@ -120,3 +122,7 @@ trainer.train()
 # Save model
 model.save_pretrained("med_mistral")
 tokenizer.save_pretrained("med_mistral")
+
+model = model.merge_and_unload()
+model.push_to_hub("adriata/med_mistral", use_temp_dir=False, token="")
+tokenizer.push_to_hub("adriata/med_mistral", use_temp_dir=False, token="")

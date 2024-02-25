@@ -1,7 +1,10 @@
 datasets
 bioc
-jupyterlab
+#jupyterlab
 torch
-unsloth @ git+https://github.com/unslothai/unsloth.git
 bitsandbytes
-triton
+transformers
+peft
+trl
+#unsloth @ git+https://github.com/unslothai/unsloth.git
+#triton
