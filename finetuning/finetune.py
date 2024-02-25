@@ -29,7 +29,7 @@ tokenizer = AutoTokenizer.from_pretrained(
 
 # tokenizer.pad_token = tokenizer.eos_token
 tokenizer.pad_token = tokenizer.unk_token
-model.config.pad_token_id = tokenizer.pad_token
+model.config.pad_token_id = tokenizer.pad_token_id
 
 # Data preparation
 #
