@@ -94,11 +94,12 @@ trainer = SFTTrainer(
     dataset_num_proc=2,
     packing=False,
     args=TrainingArguments(
-        per_device_train_batch_size=2,
+        per_device_train_batch_size=4,
         gradient_accumulation_steps=4,
         gradient_checkpointing=True,
         warmup_steps=5,
-        max_steps=60,
+        num_train_epochs=2,
+        #max_steps=20,
         learning_rate=2e-5,
         fp16=not torch.cuda.is_bf16_supported(),
         bf16=torch.cuda.is_bf16_supported(),
@@ -117,3 +118,5 @@ model.config.use_cache = False  # silence the warnings. Please re-enable for inf
 trainer.train()
 
 # Save model
+model.save_pretrained("med_mistral")
+tokenizer.save_pretrained("med_mistral")
